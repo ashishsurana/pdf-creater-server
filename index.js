@@ -3,6 +3,8 @@ var cors = require('cors');
 var bodyParser = require('body-parser');
 PDFDocument = require('pdfkit');
 const fs = require('fs');
+var randomstring = require("randomstring");
+
 
 var app = express();
 
@@ -17,7 +19,7 @@ app.get('/api/v1/file/:path', function (req, res, err) {
 
 app.post('/api/v1/info/', function (req, res, err) {
     if (req.body) {
-        const fileName = 'output.pdf';
+        const fileName = randomstring.generate(5) + '.pdf';
         res.json({
             path: 'http://localhost:3000/api/v1/file/' + generatePdf(req.body, fileName),
             fileName: fileName
